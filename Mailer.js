@@ -2,14 +2,14 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const path = require('path');
-require('dotenv').config(); // optional if using .env locally
+require('dotenv').config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname)));
+app.use(express.static(path.join(__dirname))); // serve static files (CSS, JS, images)
 
 // Serve homepage
 app.get('/', (req, res) => {
@@ -23,7 +23,7 @@ app.post('/send', (req, res) => {
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER,  // use env vars
+      user: process.env.EMAIL_USER,  
       pass: process.env.EMAIL_PASS
     }
   });
@@ -44,11 +44,11 @@ app.post('/send', (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Email error:", error);
-      return res.redirect('./error.html');
+      return res.redirect('/error.html'); // use absolute path, not relative
     }
     console.log("Email sent:", info.response);
-    res.redirect('./success.html');
+    res.redirect('/success.html'); // use absolute path
   });
 });
 
-app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
