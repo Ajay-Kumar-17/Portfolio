@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+
+.nav{
+    border: 2px solid black;
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+.desktop-nav{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.nav-links-cont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    float: left;
+}
+.nav-links-ul {
+    display: flex;
+    list-style: none;
+    padding-top: 5px;
+    margin-right: 20px;
+}
+.nav-links-ul li {
+    margin: 0 15px;
+}
+.nav-links-ul a {
+    text-decoration: none;
+    color: black;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: large;
+}
+.nav-logo-cont{
+    display: flex;
+    align-items: center;
+
+}   
+.nav-logo-cont{
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    height: 100%;
+    margin-left: 2vw;
+}
+.nav-logo {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    letter-spacing: 3px;
+    font-weight: bolder;
+    font-size: 30px;
+    text-decoration: none;
+    color: black;
+}
+.slash-nav{
+    font-size: 25px;
+    padding-top: 5px;
+    margin-left: 5px;
+}
+.nav-fed {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 17px;
+    margin-left: 5px;
+    color: black;
+    padding-top: 5px;
+}
+
+
+@media screen and (max-width: 431px){
+    .slash-nav{
+        display: none;
+    }
+    .nav-logo-cont{
+        flex-direction: column;
+        align-items: center;
+        height: 50px;
+    }
+    .desktop-nav{
+        flex-direction: column;
+        flex-wrap: wrap;
+        align-items: center;
+        width: 100%;
+    }
+    .nav-fed{
+        padding: 0;
+        margin-top: 2px;
+        margin-left: -10px;
+    }
+    .nav-links-cont{
+        height: 30px;
+        margin-top: 5px;
+    }
+    .nav-links-ul a{
+        padding: 3px;
+         font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+    .nav-logo{
+        height: fit-content;
+    }
+    .nav-links-ul li {
+    margin: -20px 20px;
+    
+    }
+    .nav-links-ul{
+        margin-left: -35px;
+    }
+    .nav-hr{
+    border-color: black;
+    width: 70%;
+    border-width: 2px;
+    border-radius: 100%;
+    margin-top: 15px;
+}
+}
+
+
+
+
+</style>
+
+
+<body>
+    
+<nav>
+    <div class="row desktop-nav">
+        <div class="col-md-5 nav-logo-cont">
+            <a class="nav-logo" href="#home">Ajay Kumar</a> <p class="slash-nav">/</p> <p class="nav-fed">Front-End-Developer</p>
+            </div>
+            <hr class="nav-hr">    
+        <div class="col-md-7 nav-links-cont">
+        <ul class="nav-links-ul">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </div>
+    </div>
+</nav>
+
+</body>
+</html>
