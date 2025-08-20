@@ -53,4 +53,17 @@ app.post('/send', (req, res) => {
   });
 });
 
+app.get("/download-resume", (req, res) => {
+  const filePath = path.join(__dirname, "ajaykumar-resume.pdf");
+  console.log("Looking for file at:", filePath);  // 👈 debug
+  res.download(filePath, "Ajay-Kumar-Resume.pdf", (err) => {
+    if (err) {
+      console.error("Error sending file:", err);
+      res.status(500).send("File not found!");
+    }
+  });
+});
+
+
+
 app.listen(PORT, () => console.log(`✅ Server running on port ${PORT}`));
