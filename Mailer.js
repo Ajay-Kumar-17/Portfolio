@@ -1,44 +1,54 @@
-
 const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
+const path = require('path');
+require('dotenv').config(); // optional if using .env locally
+
 const app = express();
+const PORT = process.env.PORT || 3000;
 
+// Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static(path.join(__dirname)));
 
+// Serve homepage
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+// Handle form
 app.post('/send', (req, res) => {
   const { name, company, email, mobile, purpose, message } = req.body;
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: 'ajaykumarace17@gmail.com',
-      pass: 'yltt bxxm pnda xjbr'
+      user: process.env.EMAIL_USER,  // use env vars
+      pass: process.env.EMAIL_PASS
     }
   });
 
-const mailOptions = {
-  from: 'ajaykumarace17@gmail.com', // your Gmail
-  to: 'ajaykumarace17@gmail.com',   // your Gmail
-  replyTo: email,                   // user's email
-  subject: `${company} + ${purpose}`,
-  text: `
-    Name: ${name}
-    Mobile: ${mobile}
-    Email: ${email}
-    Message: ${message}
-  `
-};
+  const mailOptions = {
+    from: process.env.EMAIL_USER,
+    to: process.env.EMAIL_USER,
+    replyTo: email,
+    subject: `${company} + ${purpose}`,
+    text: `
+      Name: ${name}
+      Mobile: ${mobile}
+      Email: ${email}
+      Message: ${message}
+    `
+  };
 
-
-
-transporter.sendMail(mailOptions, (error, info) => {
-  if (error) {
-    console.error("Email error:", error);
-    return res.redirect('./error.html');
-  }
-  console.log("Email sent:", info.response);
-  res.redirect('./success.html');
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error("Email error:", error);
+      return res.redirect('./error.html');
+    }
+    console.log("Email sent:", info.response);
+    res.redirect('./success.html');
+  });
 });
-});
-app.listen(3000, () => console.log('Server running on port localhost:3000'));
+
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
