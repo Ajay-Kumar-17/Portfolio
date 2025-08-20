@@ -9,21 +9,23 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname))); // serve static files (CSS, JS, images)
 
-// Serve homepage
+// Serve static files from root
+app.use(express.static(path.join(__dirname)));
+
+// Serve homepage (Index.html)
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'index.html'));
+  res.sendFile(path.join(__dirname, 'Index.html')); // capital I matches your file
 });
 
-// Handle form
+// Handle form submission
 app.post('/send', (req, res) => {
   const { name, company, email, mobile, purpose, message } = req.body;
 
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
-      user: process.env.EMAIL_USER,  
+      user: process.env.EMAIL_USER,
       pass: process.env.EMAIL_PASS
     }
   });
@@ -44,10 +46,10 @@ app.post('/send', (req, res) => {
   transporter.sendMail(mailOptions, (error, info) => {
     if (error) {
       console.error("Email error:", error);
-      return res.redirect('/error.html'); // use absolute path, not relative
+      return res.sendFile(path.join(__dirname, 'error.html'));
     }
     console.log("Email sent:", info.response);
-    res.redirect('/success.html'); // use absolute path
+    res.sendFile(path.join(__dirname, 'success.html'));
   });
 });
 
